@@ -1,18 +1,21 @@
 # spicy_visualization
 海外研修_Project
 ## Dependency
-1. Download `Tesseract-OCR` from the following URL:
-[Tesseract-OCR](https://github.com/UB-Mannheim/tesseract/wiki)
-2. Installing Python libraries
+
+## Setup
+1. Download `Anaconda`
+[Anaconda Installers](https://www.anaconda.com/download/success)
+2. Open the `Anaconda Prompt`
+3. Installing Python libraries
 (Execute the following command in an environment where Python is installed.)
 ```
 pip install opencv-python pytesseract pillow
 ```
-## Setup
-
+4. Download `Tesseract-OCR` from the following URL:
+[Tesseract-OCR](https://github.com/UB-Mannheim/tesseract/wiki)
 ## Usage
 ```
-$ ros2 run orale_node read_serial
+
 ```
 ## License
 ## Authors
