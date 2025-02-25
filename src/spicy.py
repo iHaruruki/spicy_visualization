@@ -2,9 +2,15 @@ import pytesseract
 import cv2
 from PIL import Image
 import csv
+import os
 
 # Tesseract のパスを手動指定
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+
+# 画像ファイルのパス
+image_path = "image/sample_ingredients2.jpg"
+if image_path is None:
+    print("Error: Could not load image. Check the file path.")
 
 # OCRで成分表のテキストを抽出
 def extract_ingredients(image_path):
@@ -33,26 +39,17 @@ def determine_spiciness(ingredients, spicy_data):
 
 # テスト実行
 if __name__ == "__main__":
-    image_path = "src\sample_ingredients2.jpg"  # 成分表の画像
-    csv_file = "src\spicy_snacks.csv"
+    #image_path = "src/sample_ingredients2.jpg"  # 成分表の画像
+    # 画像を読み込む
 
-
-
-
-     # 画像を読み込む
     image = cv2.imread(image_path)
-
-
+    csv_file = "src/spicy_snacks.csv"
     # 画像を表示する
     cv2.imshow("Image", image)
-
     # キーが押されるまで待機
     cv2.waitKey(0)
-
     # ウィンドウを閉じる
     cv2.destroyAllWindows()
-
-
 
     extracted_text = extract_ingredients(image_path)
     print("OCR抽出結果:", extracted_text)
