@@ -3,7 +3,7 @@
 ## Dependency
 
 ## Setup
-1. Download `Anaconda`
+1. Download `Anaconda`<br>
 [Anaconda Installers](https://www.anaconda.com/download/success)
 2. Open the `Anaconda Prompt`
 3. Installing Python libraries
@@ -11,7 +11,7 @@
 ```
 pip install opencv-python pytesseract pillow
 ```
-4. Download `Tesseract-OCR` from the following URL:
+4. Download `Tesseract-OCR` from the following URL:<br>
 [Tesseract-OCR](https://github.com/UB-Mannheim/tesseract/wiki)
 ## Usage
 ```
