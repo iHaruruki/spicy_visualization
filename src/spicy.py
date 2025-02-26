@@ -27,7 +27,7 @@ def load_spicy_data(csv_file):
             spicy_data.append(row)
     return spicy_data
 
-# OCR結果とデータセットを比較し、辛さレベルを判定
+ OCR結果とデータセットを比較し、辛さレベルを判定
 def determine_spiciness(ingredients, spicy_data):
     max_spice_level = 0
     for snack in spicy_data:
