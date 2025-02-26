@@ -50,10 +50,12 @@ if __name__ == "__main__":
     cv2.waitKey(0)
     # ウィンドウを閉じる
     cv2.destroyAllWindows()
-
+    """
     extracted_text = extract_ingredients(image_path)
     print("OCR抽出結果:", extracted_text)
 
+    """
+    extracted_text = "唐辛子"
     spicy_data = load_spicy_data(csv_file)
     spiciness_level = determine_spiciness(extracted_text, spicy_data)
     print("推定辛さレベル:", spiciness_level)
