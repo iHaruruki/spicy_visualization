@@ -8,7 +8,7 @@ import os
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 # 画像ファイルのパス
-image_path = "image/sample_ingredients2.jpg"
+image_path = "image/sample1.jpg"
 if image_path is None:
     print("Error: Could not load image. Check the file path.")
 
