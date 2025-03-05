@@ -68,11 +68,10 @@ def main():
         print(f"\n＜レベル {level} の質問＞")
         try:
             ans1 = float(input(f" レベル {level} 質問1の回答: "))
-            ans2 = float(input(f" レベル {level} 質問2の回答: "))
         except ValueError:
             print("数値を入力してください。")
             return
-        answers[f'level{level}'] = [ans1, ans2]
+        answers[f'level{level}'] = [ans1]
 
     # 生活状況に関する補正入力
     print("\n【生活状況の入力】")
@@ -98,7 +97,7 @@ def main():
     print(f"補正後の最終許容量: {final_tolerance:.2f}")
 
     # CSV ファイルからスナック情報を読み込む
-    csv_filename = "src1/snacks.csv"
+    csv_filename = "snacks.csv"
     snack_db = load_snack_db(csv_filename)
     if not snack_db:
         print("スナック情報が読み込めませんでした。CSVファイルを確認してください。")
