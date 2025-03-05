@@ -29,7 +29,7 @@ rmse = np.sqrt(mean_squared_error(y_test, y_pred))
 print("テストデータでのRMSE:", rmse)
 
 # 例: ハイパーパラメータのチューニング（必要に応じて他のモデルで試す）
-param_grid = {'fit_intercept': [True, False], 'normalize': [True, False]}
-grid_search = GridSearchCV(LinearRegression(), param_grid, cv=5)
-grid_search.fit(X_train, y_train)
-print("最適なパラメータ:", grid_search.best_params_)
+#param_grid = {'fit_intercept': [True, False], 'normalize': [True, False]}
+#grid_search = GridSearchCV(LinearRegression(), param_grid, cv=5)
+#grid_search.fit(X_train, y_train)
+#print("最適なパラメータ:", grid_search.best_params_)
