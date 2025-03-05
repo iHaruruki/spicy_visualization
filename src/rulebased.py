@@ -98,7 +98,7 @@ def main():
     print(f"補正後の最終許容量: {final_tolerance:.2f}")
 
     # CSV ファイルからスナック情報を読み込む
-    csv_filename = "snacks.csv"
+    csv_filename = "src1/snacks.csv"
     snack_db = load_snack_db(csv_filename)
     if not snack_db:
         print("スナック情報が読み込めませんでした。CSVファイルを確認してください。")
