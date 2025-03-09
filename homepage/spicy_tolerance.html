@@ -5,13 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>辛さ許容量計算</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #snackList {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .snack-item {
+            text-align: center;
+        }
+        .snack-item img {
+            width: 150px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
     <h1>辛さ許容量計算</h1>
     
     <form id="toleranceForm">
         <h2>アンケート入力</h2>
-        <p>各レベルごとの質問に「YES」または「NO」で答えてください。</p>
+        <p>各レベルごとの質問2問の回答（YES/NO）を選択してください。</p>
         
         <div id="questions"></div>
         
@@ -28,12 +50,36 @@
     
     <button id="goToEvaluation" style="display:none;">スナック評価へ</button>
     
+    <h2>スナック一覧</h2>
+    <div id="snackList">
+        <div class="snack-item">
+            <img src="../image/testsnack1.jpg" alt="レベル1スナック">
+            <p>レベル1スナック</p>
+        </div>
+        <div class="snack-item">
+            <img src="../image/testsnack2.jpg" alt="レベル2スナック">
+            <p>レベル2スナック</p>
+        </div>
+        <div class="snack-item">
+            <img src="../image/testsnack3.jpg" alt="レベル3スナック">
+            <p>レベル3スナック</p>
+        </div>
+        <div class="snack-item">
+            <img src="../image/testsnack4.jpg" alt="レベル4スナック">
+            <p>レベル4スナック</p>
+        </div>
+        <div class="snack-item">
+            <img src="../image/testsnack5.jpg" alt="レベル5スナック">
+            <p>レベル5スナック</p>
+        </div>
+    </div>
+    
     <script>
         $(document).ready(function() {
             let questionHtml = "";
             for (let level = 1; level <= 5; level++) {
-                questionHtml += `<label>レベル ${level} の質問: 
-                    <input type="radio" name="level${level}" value="1"> YES 
+                questionHtml += `<label>レベル ${level} 質問1: 
+                    <input type="radio" name="level${level}" value="1"> YES
                     <input type="radio" name="level${level}" value="0" checked> NO
                 </label><br>`;
             }
@@ -44,12 +90,10 @@
                 let total = 0;
                 
                 for (let level = 1; level <= 5; level++) {
-                    let value = parseInt($(`input[name="level${level}"]:checked`).val());
-                    total += value;
+                    total += parseInt($(`input[name='level${level}']:checked`).val());
                 }
                 
                 let baseTolerance = total;
-                
                 let preference = parseFloat($('input[name="preference"]:checked').val());
                 let finalTolerance = baseTolerance + preference;
                 

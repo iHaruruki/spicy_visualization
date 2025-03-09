@@ -32,6 +32,30 @@
     
     <script>
         $(document).ready(function() {
+            let snackData = {};
+
+            // CSVファイルを読み込む (正しいパスに修正)
+            function loadSnackData() {
+                fetch('../database/snacks.csv')  // ← `../` を追加して親ディレクトリを参照
+                    .then(response => response.text())
+                    .then(csvText => {
+                        let rows = csvText.split("\n").slice(1); // ヘッダー行をスキップ
+                        rows.forEach(row => {
+                            let columns = row.split(",");
+                            if (columns.length === 3) {
+                                let name = columns[1].trim(); // スナック名
+                                let spiciness = parseInt(columns[2].trim()); // 辛さレベル
+                                if (!isNaN(spiciness)) {
+                                    snackData[name] = spiciness;
+                                }
+                            }
+                        });
+                    })
+                    .catch(error => console.error("CSV読み込みエラー:", error));
+            }
+
+            loadSnackData();
+
             $('input[name="method"]').change(function() {
                 if ($(this).val() === "manual") {
                     $('#manualInput').show();
@@ -41,32 +65,23 @@
                     $('#ocrInput').show();
                 }
             });
-            
+
             $('#snackForm').submit(function(event) {
                 event.preventDefault();
                 let method = $('input[name="method"]:checked').val();
                 let snackName = "";
-                
+
                 if (method === "manual") {
-                    snackName = $('#snackName').val();
+                    snackName = $('#snackName').val().trim();
                 } else {
                     alert("OCR機能は未実装です。");
                     return;
                 }
-                
-                let snackData = { "ポテトチップス": 2, "唐辛子せんべい": 5, "カラムーチョ": 4 };
+
                 let spiciness = snackData[snackName] || null;
                 if (spiciness === null) {
-                    $('#evaluation').text("該当するスナックが見つかりません。");
+                    $('#evaluation').text(`「${snackName}」のデータが見つかりません。`);
                     return;
                 }
-                
-                let finalTolerance = parseFloat(localStorage.getItem('finalTolerance')) || 0;
-                let evaluation = finalTolerance >= spiciness ? "食べられる" : "辛すぎる";
-                
-                $('#evaluation').text(${snackName} の辛さレベルは ${spiciness} です。評価: ${evaluation});
-            });
-        });
-    </script>
-</body>
-</html>
+
+                let finalTolerance = parseFloat(localStorage.getItem('final
