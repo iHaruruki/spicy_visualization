@@ -51,6 +51,7 @@
     
     <h2 id="resultTitle">計算結果</h2>
     <p id="result"></p>
+
     
     <button id="goToEvaluation" style="display:none;">スナック評価へ</button>
     
@@ -144,7 +145,31 @@
                 $('#snackListTitle').text(t.snackListTitle);
                 $('.snack-level').each((i, el) => $(el).text(t.snackLevels[i]));
             });
+            $('#toleranceForm').submit(function(event) {
+                event.preventDefault();
+                let total = 0;
+                
+                for (let level = 1; level <= 5; level++) {
+                    if ($(`input[name="snack${level}"]:checked`).val() === "yes") {
+                        total += level;
+                    }
+                }
+                
+                let baseTolerance = total / 5;
+                let preference = parseFloat($('input[name="preference"]:checked').val());
+                let finalTolerance = baseTolerance + preference;
+                
+                $('#result').text(`Basic Allowance: ${baseTolerance.toFixed(2)}, After Correction : ${finalTolerance.toFixed(2)}`);
+                localStorage.setItem('finalTolerance', finalTolerance);
+                $('#goToEvaluation').show();
+            });
+            
+            $('#goToEvaluation').click(function() {
+                window.location.href = 'snack_evaluation.html';
+            });
         });
+            
+    
     </script>
 </body>
 </html>
