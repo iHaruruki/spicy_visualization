@@ -64,7 +64,7 @@
                 let finalTolerance = parseFloat(localStorage.getItem('finalTolerance')) || 0;
                 let evaluation = finalTolerance >= spiciness ? "食べられる" : "辛すぎる";
                 
-                $('#evaluation').text(`${snackName} の辛さレベルは ${spiciness} です。評価: ${evaluation}`);
+                $('#evaluation').text(${snackName} の辛さレベルは ${spiciness} です。評価: ${evaluation});
             });
         });
     </script>

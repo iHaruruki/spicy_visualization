@@ -11,7 +11,7 @@
     
     <form id="toleranceForm">
         <h2>アンケート入力</h2>
-        <p>各レベルごとの質問2問の回答（数値）を入力してください。</p>
+        <p>各レベルごとの質問に「YES」または「NO」で答えてください。</p>
         
         <div id="questions"></div>
         
@@ -32,31 +32,28 @@
         $(document).ready(function() {
             let questionHtml = "";
             for (let level = 1; level <= 5; level++) {
-                questionHtml += `<label>レベル ${level} 質問1の回答: <input type="number" class="level" data-level="${level}"></label><br>`;
+                questionHtml += `<label>レベル ${level} の質問: 
+                    <input type="radio" name="level${level}" value="1"> YES 
+                    <input type="radio" name="level${level}" value="0" checked> NO
+                </label><br>`;
             }
             $('#questions').html(questionHtml);
             
             $('#toleranceForm').submit(function(event) {
                 event.preventDefault();
                 let total = 0;
-                let answers = {};
                 
-                $('.level').each(function() {
-                    let level = $(this).data('level');
-                    let value = parseFloat($(this).val()) || 0;
-                    if (!answers[level]) answers[level] = [];
-                    answers[level].push(value);
-                });
-                
-                for (let level in answers) {
-                    total += Math.max(...answers[level]);
+                for (let level = 1; level <= 5; level++) {
+                    let value = parseInt($(`input[name="level${level}"]:checked`).val());
+                    total += value;
                 }
-                let baseTolerance = total / 5;
+                
+                let baseTolerance = total;
                 
                 let preference = parseFloat($('input[name="preference"]:checked').val());
                 let finalTolerance = baseTolerance + preference;
                 
-                $('#result').text(`基本許容量: ${baseTolerance.toFixed(2)}, 補正後: ${finalTolerance.toFixed(2)}`);
+                $('#result').text(`基本許容量: ${baseTolerance}, 補正後: ${finalTolerance}`);
                 localStorage.setItem('finalTolerance', finalTolerance);
                 $('#goToEvaluation').show();
             });
