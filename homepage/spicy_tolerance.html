@@ -29,81 +29,120 @@
     </style>
 </head>
 <body>
-    <h1>辛さ許容量計算</h1>
+    <h1 id="title">辛さ許容量計算</h1>
+    
+    <button class="lang-btn" data-lang="ja">日本語</button>
+    <button class="lang-btn" data-lang="th">ไทย</button>
+    <button class="lang-btn" data-lang="en">English</button>
     
     <form id="toleranceForm">
-        <h2>アンケート入力</h2>
-        <p>各レベルごとの質問2問の回答（YES/NO）を選択してください。</p>
+        <h2 id="surveyTitle">アンケート入力</h2>
+        <p id="surveyDesc">各レベルごとの質問に（YES/NO）を選択してください。</p>
         
         <div id="questions"></div>
         
-        <h2>生活状況の入力</h2>
-        <label><input type="radio" name="preference" value="-1"> 全く食べない</label>
-        <label><input type="radio" name="preference" value="0" checked> 少し辛いものならok</label>
-        <label><input type="radio" name="preference" value="1"> 辛いの行ける</label>
+        <h2 id="lifestyleTitle">生活状況の入力</h2>
+        <label><input type="radio" name="preference" value="-1"> <span class="lifestyle">全く食べない</span></label>
+        <label><input type="radio" name="preference" value="0" checked> <span class="lifestyle">少し辛いものならok</span></label>
+        <label><input type="radio" name="preference" value="1"> <span class="lifestyle">辛いの行ける</span></label>
         
-        <button type="submit">計算</button>
+        <button type="submit" id="calculateBtn">計算</button>
     </form>
     
-    <h2>計算結果</h2>
+    <h2 id="resultTitle">計算結果</h2>
     <p id="result"></p>
     
     <button id="goToEvaluation" style="display:none;">スナック評価へ</button>
     
-    <h2>スナック一覧</h2>
+    <h2 id="snackListTitle">スナック一覧</h2>
     <div id="snackList">
         <div class="snack-item">
             <img src="../image/testsnack1.jpg" alt="レベル1スナック">
-            <p>レベル1スナック</p>
+            <p class="snack-level">レベル1スナック</p>
+            <label><input type="radio" name="snack1" value="yes"> YES</label>
+            <label><input type="radio" name="snack1" value="no" checked> NO</label>
         </div>
         <div class="snack-item">
             <img src="../image/testsnack2.jpg" alt="レベル2スナック">
-            <p>レベル2スナック</p>
+            <p class="snack-level">レベル2スナック</p>
+            <label><input type="radio" name="snack2" value="yes"> YES</label>
+            <label><input type="radio" name="snack2" value="no" checked> NO</label>
         </div>
         <div class="snack-item">
             <img src="../image/testsnack3.jpg" alt="レベル3スナック">
-            <p>レベル3スナック</p>
+            <p class="snack-level">レベル3スナック</p>
+            <label><input type="radio" name="snack3" value="yes"> YES</label>
+            <label><input type="radio" name="snack3" value="no" checked> NO</label>
         </div>
         <div class="snack-item">
             <img src="../image/testsnack4.jpg" alt="レベル4スナック">
-            <p>レベル4スナック</p>
+            <p class="snack-level">レベル4スナック</p>
+            <label><input type="radio" name="snack4" value="yes"> YES</label>
+            <label><input type="radio" name="snack4" value="no" checked> NO</label>
         </div>
         <div class="snack-item">
             <img src="../image/testsnack5.jpg" alt="レベル5スナック">
-            <p>レベル5スナック</p>
+            <p class="snack-level">レベル5スナック</p>
+            <label><input type="radio" name="snack5" value="yes"> YES</label>
+            <label><input type="radio" name="snack5" value="no" checked> NO</label>
         </div>
     </div>
     
     <script>
-        $(document).ready(function() {
-            let questionHtml = "";
-            for (let level = 1; level <= 5; level++) {
-                questionHtml += `<label>レベル ${level} 質問1: 
-                    <input type="radio" name="level${level}" value="1"> YES
-                    <input type="radio" name="level${level}" value="0" checked> NO
-                </label><br>`;
+        const translations = {
+            ja: {
+                title: "辛さ許容量計算",
+                surveyTitle: "アンケート入力",
+                surveyDesc: "各レベルごとの質問に（YES/NO）を選択してください。",
+                lifestyleTitle: "生活状況の入力",
+                lifestyle: ["全く食べない", "少し辛いものならok", "辛いの行ける"],
+                calculateBtn: "計算",
+                resultTitle: "計算結果",
+                goToEvaluation: "スナック評価へ",
+                snackListTitle: "スナック一覧",
+                snackLevels: ["レベル1スナック", "レベル2スナック", "レベル3スナック", "レベル4スナック", "レベル5スナック"]
+            },
+            th: {
+                title: "การคำนวณความสามารถในการทนเผ็ด",
+                surveyTitle: "แบบสอบถาม",
+                surveyDesc: "กรุณาเลือก (YES/NO) สำหรับแต่ละระดับ",
+                lifestyleTitle: "ข้อมูลวิถีชีวิต",
+                lifestyle: ["ไม่กินเผ็ดเลย", "กินเผ็ดนิดหน่อยได้", "กินเผ็ดเก่ง"],
+                calculateBtn: "คำนวณ",
+                resultTitle: "ผลลัพธ์",
+                goToEvaluation: "ไปที่การประเมินขนม",
+                snackListTitle: "รายการขนม",
+                snackLevels: ["ขนมระดับ 1", "ขนมระดับ 2", "ขนมระดับ 3", "ขนมระดับ 4", "ขนมระดับ 5"]
+            },
+            en: {
+                title: "Spice Tolerance Calculation",
+                surveyTitle: "Survey Input",
+                surveyDesc: "Please select (YES/NO) for each level.",
+                lifestyleTitle: "Lifestyle Input",
+                lifestyle: ["Never eat spicy", "Can handle a little spicy", "Love spicy food"],
+                calculateBtn: "Calculate",
+                resultTitle: "Calculation Result",
+                goToEvaluation: "Go to Snack Evaluation",
+                snackListTitle: "Snack List",
+                snackLevels: ["Level 1 Snack", "Level 2 Snack", "Level 3 Snack", "Level 4 Snack", "Level 5 Snack"]
             }
-            $('#questions').html(questionHtml);
-            
-            $('#toleranceForm').submit(function(event) {
-                event.preventDefault();
-                let total = 0;
+        };
+
+        $(document).ready(function() {
+            $('.lang-btn').click(function() {
+                let lang = $(this).data('lang');
+                let t = translations[lang];
                 
-                for (let level = 1; level <= 5; level++) {
-                    total += parseInt($(`input[name='level${level}']:checked`).val());
-                }
-                
-                let baseTolerance = total;
-                let preference = parseFloat($('input[name="preference"]:checked').val());
-                let finalTolerance = baseTolerance + preference;
-                
-                $('#result').text(`基本許容量: ${baseTolerance}, 補正後: ${finalTolerance}`);
-                localStorage.setItem('finalTolerance', finalTolerance);
-                $('#goToEvaluation').show();
-            });
-            
-            $('#goToEvaluation').click(function() {
-                window.location.href = 'snack_evaluation.html';
+                $('#title').text(t.title);
+                $('#surveyTitle').text(t.surveyTitle);
+                $('#surveyDesc').text(t.surveyDesc);
+                $('#lifestyleTitle').text(t.lifestyleTitle);
+                $('label .lifestyle').each((i, el) => $(el).text(t.lifestyle[i]));
+                $('#calculateBtn').text(t.calculateBtn);
+                $('#resultTitle').text(t.resultTitle);
+                $('#goToEvaluation').text(t.goToEvaluation);
+                $('#snackListTitle').text(t.snackListTitle);
+                $('.snack-level').each((i, el) => $(el).text(t.snackLevels[i]));
             });
         });
     </script>
