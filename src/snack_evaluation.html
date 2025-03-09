@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>スナック評価</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>スナック評価</h1>
+    
+    <form id="snackForm">
+        <h2>スナックの評価方法を選択</h2>
+        <label><input type="radio" name="method" value="manual" checked> スナック名を入力</label>
+        <label><input type="radio" name="method" value="ocr"> 画像ファイルをアップロード</label>
+        
+        <div id="manualInput">
+            <label for="snackName">スナック名:</label>
+            <input type="text" id="snackName"><br>
+        </div>
+        
+        <div id="ocrInput" style="display:none;">
+            <label for="snackImage">スナックの画像をアップロード:</label>
+            <input type="file" id="snackImage" accept="image/*"><br>
+        </div>
+        
+        <button type="submit">評価</button>
+    </form>
+    
+    <h2>評価結果</h2>
+    <p id="evaluation"></p>
+    
+    <script>
+        $(document).ready(function() {
+            $('input[name="method"]').change(function() {
+                if ($(this).val() === "manual") {
+                    $('#manualInput').show();
+                    $('#ocrInput').hide();
+                } else {
+                    $('#manualInput').hide();
+                    $('#ocrInput').show();
+                }
+            });
+            
+            $('#snackForm').submit(function(event) {
+                event.preventDefault();
+                let method = $('input[name="method"]:checked').val();
+                let snackName = "";
+                
+                if (method === "manual") {
+                    snackName = $('#snackName').val();
+                } else {
+                    alert("OCR機能は未実装です。");
+                    return;
+                }
+                
+                let snackData = { "ポテトチップス": 2, "唐辛子せんべい": 5, "カラムーチョ": 4 };
+                let spiciness = snackData[snackName] || null;
+                if (spiciness === null) {
+                    $('#evaluation').text("該当するスナックが見つかりません。");
+                    return;
+                }
+                
+                let finalTolerance = parseFloat(localStorage.getItem('finalTolerance')) || 0;
+                let evaluation = finalTolerance >= spiciness ? "食べられる" : "辛すぎる";
+                
+                $('#evaluation').text(`${snackName} の辛さレベルは ${spiciness} です。評価: ${evaluation}`);
+            });
+        });
+    </script>
+</body>
+</html>
