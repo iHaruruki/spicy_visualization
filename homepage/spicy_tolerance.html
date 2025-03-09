@@ -29,15 +29,21 @@
     </style>
 </head>
 <body>
-    <h1 id="title">辛さ許容量計算</h1>
-    
     <button class="lang-btn" data-lang="ja">日本語</button>
     <button class="lang-btn" data-lang="th">ไทย</button>
     <button class="lang-btn" data-lang="en">English</button>
-    
+    <h1 id="title">辛さ許容量計算</h1>
     <form id="toleranceForm">
         <h2 id="surveyTitle">アンケート入力</h2>
-        <p id="surveyDesc">各レベルごとの質問に（YES/NO）を選択してください。</p>
+
+        <label for="age" id="ageLabel">年齢:</label>
+        <input type="number" id="age" name="age" min="1" max="120" required>
+        
+        <label for="nationality" id="nationalityLabel">国籍:</label>
+        <select id="nationality" name="nationality" required>
+            <option value="japan">日本</option>
+            <option value="thailand">タイ</option>
+        </select>
         
         <div id="questions"></div>
         
@@ -45,17 +51,14 @@
         <label><input type="radio" name="preference" value="-1"> <span class="lifestyle">全く食べない</span></label>
         <label><input type="radio" name="preference" value="0" checked> <span class="lifestyle">少し辛いものならok</span></label>
         <label><input type="radio" name="preference" value="1"> <span class="lifestyle">辛いの行ける</span></label>
-        
+        <h2 id="snackListTitle">スナック一覧</h2>
         <button type="submit" id="calculateBtn">計算</button>
+         <p id="surveyDesc">各レベルごとの質問に（YES/NO）を選択してください。</p>
+    
     </form>
     
-    <h2 id="resultTitle">計算結果</h2>
-    <p id="result"></p>
-
     
-    <button id="goToEvaluation" style="display:none;">スナック評価へ</button>
     
-    <h2 id="snackListTitle">スナック一覧</h2>
     <div id="snackList">
         <div class="snack-item">
             <img src="../image/testsnack1.jpg" alt="レベル1スナック">
@@ -88,12 +91,22 @@
             <label><input type="radio" name="snack5" value="no" checked> NO</label>
         </div>
     </div>
+    <button type="submit" id="calculateBtn">計算</button>
+
+    <h2 id="resultTitle">計算結果</h2>
+    <p id="result"></p>
+
+    
+    <button id="goToEvaluation" style="display:none;">スナック評価へ</button>
     
     <script>
         const translations = {
             ja: {
                 title: "辛さ許容量計算",
                 surveyTitle: "アンケート入力",
+                ageLabel: "年齢:",
+                nationalityLabel: "国籍:",
+                nationalityOptions: { japan: "日本", thailand: "タイ" },
                 surveyDesc: "各レベルごとの質問に（YES/NO）を選択してください。",
                 lifestyleTitle: "生活状況の入力",
                 lifestyle: ["全く食べない", "少し辛いものならok", "辛いの行ける"],
@@ -106,6 +119,9 @@
             th: {
                 title: "การคำนวณความสามารถในการทนเผ็ด",
                 surveyTitle: "แบบสอบถาม",
+                ageLabel: "อายุ:",
+                nationalityLabel: "สัญชาติ:",
+                nationalityOptions: { japan: "ญี่ปุ่น", thailand: "ไทย" },
                 surveyDesc: "กรุณาเลือก (YES/NO) สำหรับแต่ละระดับ",
                 lifestyleTitle: "ข้อมูลวิถีชีวิต",
                 lifestyle: ["ไม่กินเผ็ดเลย", "กินเผ็ดนิดหน่อยได้", "กินเผ็ดเก่ง"],
@@ -118,6 +134,9 @@
             en: {
                 title: "Spice Tolerance Calculation",
                 surveyTitle: "Survey Input",
+                ageLabel: "Age:",
+                nationalityLabel: "Nationality:",
+                nationalityOptions: { japan: "Japan", thailand: "Thailand" },
                 surveyDesc: "Please select (YES/NO) for each level.",
                 lifestyleTitle: "Lifestyle Input",
                 lifestyle: ["Never eat spicy", "Can handle a little spicy", "Love spicy food"],
@@ -136,6 +155,9 @@
                 
                 $('#title').text(t.title);
                 $('#surveyTitle').text(t.surveyTitle);
+                $('#ageLabel').text(t.ageLabel);
+                $('#nationalityLabel').text(t.nationalityLabel);
+
                 $('#surveyDesc').text(t.surveyDesc);
                 $('#lifestyleTitle').text(t.lifestyleTitle);
                 $('label .lifestyle').each((i, el) => $(el).text(t.lifestyle[i]));
@@ -144,6 +166,10 @@
                 $('#goToEvaluation').text(t.goToEvaluation);
                 $('#snackListTitle').text(t.snackListTitle);
                 $('.snack-level').each((i, el) => $(el).text(t.snackLevels[i]));
+                $('#nationality option').each(function() {
+                    let value = $(this).val();
+                    $(this).text(t.nationalityOptions[value]);
+                });
             });
             $('#toleranceForm').submit(function(event) {
                 event.preventDefault();
