@@ -1,100 +1,99 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>スナック評価</title>
+    <title>Snack Evaluation</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <h1>スナック評価</h1>
+    <h1>Snack Evaluation</h1>
     
     <form id="snackForm">
-        <h2>スナックの評価方法を選択</h2>
-        <label><input type="radio" name="method" value="manual" checked> スナック名を入力</label>
-        <label><input type="radio" name="method" value="ocr"> 画像ファイルをアップロード</label>
+        <h2>Select Evaluation Method</h2>
+        <label><input type="radio" name="method" value="manual" checked> Enter Snack Name</label>
+        <label><input type="radio" name="method" value="ocr"> Upload Image File</label>
         
         <div id="manualInput">
-            <label for="snackName">スナック名:</label>
+            <label for="snackName">Snack Name:</label>
             <input type="text" id="snackName"><br>
         </div>
         
         <div id="ocrInput" style="display:none;">
-            <label for="snackImage">スナックの画像をアップロード:</label>
+            <label for="snackImage">Upload Snack Image:</label>
             <input type="file" id="snackImage" accept="image/*"><br>
         </div>
         
-        <button type="submit">評価</button>
+        <button type="submit">Evaluate</button>
     </form>
     
-    <h2>評価結果</h2>
+    <h2>Evaluation Result</h2>
     <p id="evaluation"></p>
     
     <script>
         $(document).ready(function() {
-    // 疑似データベース（CSVの代わり）
-    let snackData = {
-        "辛口スナックA": 3,
-        "激辛スナックB": 5,
-        "マイルドスナック": 1
-    };
+            let snackData = {
+                "Spicy Snack A": 3,
+                "Super Spicy Snack B": 5,
+                "Mild Snack": 1
+            };
 
-    // spicy_tolerance.html で入力したデータを取得
-    let age = localStorage.getItem('userAge') || "未入力";
-    let nationality = localStorage.getItem('userNationality') || "未入力";
-    let finalTolerance = localStorage.getItem('finalTolerance') || "未計算";
-
-    // 国籍の表示名を修正
-    let nationalityText = (nationality === "japan") ? "日本" : (nationality === "thailand") ? "タイ" : nationality;
-
-    // データを画面に表示
-    $('#evaluation').before(`
-        <h2>ユーザー情報</h2>
-        <p>年齢: ${age} 歳</p>
-        <p>国籍: ${nationality}</p>
-        <p>計算された許容辛さレベル: ${finalTolerance}</p>
-    `);
-
-    $('input[name="method"]').change(function() {
-        if ($(this).val() === "manual") {
-            $('#manualInput').show();
-            $('#ocrInput').hide();
-        } else {
-            $('#manualInput').hide();
-            $('#ocrInput').show();
-        }
-    });
-
-    $('#snackForm').submit(function(event) {
-        event.preventDefault();
-        let method = $('input[name="method"]:checked').val();
-        let snackName = "";
-
-        if (method === "manual") {
-            snackName = $('#snackName').val().trim();
-        } else {
-            alert("OCR機能は未実装です。");
-            return;
-        }
-
-        let spiciness = snackData[snackName] || null;
-        if (spiciness === null) {
-            $('#evaluation').text(`「${snackName}」のデータが見つかりません。`);
-            return;
-        }
-
-        let userTolerance = parseFloat(finalTolerance);
-        let resultMessage = `「${snackName}」の辛さレベルは ${spiciness} です。`;
-
-        if (spiciness > userTolerance) {
-            resultMessage += "このスナックは辛すぎるかもしれません！";
-        } else {
-            resultMessage += "このスナックはあなたに合いそうです！";
-        }
-
-        $('#evaluation').text(resultMessage);
-    });
-});
-
-    </script>
+            let age = localStorage.getItem('userAge') || "Not entered";
+            let nationality = localStorage.getItem('userNationality') || "Not entered";
+            let finalTolerance = localStorage.getItem('finalTolerance') || "Not calculated";
     
+            let nationalityText = ["日本", "Japan", "ญี่ปุ่น"].includes(nationality) ? "JP" :
+                      ["タイ", "Thailand", "ไทย"].includes(nationality) ? "TH" :
+                      nationality;
+
+    
+            $('#evaluation').before(`
+                <h2>User Information</h2>
+                <p>Age: ${age} years</p>
+                <p>Nationality: ${nationalityText}</p>
+                <p>Calculated Spice Tolerance Level: ${finalTolerance}</p>
+            `);
+    
+            $('input[name="method"]').change(function() {
+                if ($(this).val() === "manual") {
+                    $('#manualInput').show();
+                    $('#ocrInput').hide();
+                } else {
+                    $('#manualInput').hide();
+                    $('#ocrInput').show();
+                }
+            });
+    
+            $('#snackForm').submit(function(event) {
+                event.preventDefault();
+                let method = $('input[name="method"]:checked').val();
+                let snackName = "";
+    
+                if (method === "manual") {
+                    snackName = $('#snackName').val().trim();
+                } else {
+                    alert("OCR functionality is not implemented yet.");
+                    return;
+                }
+    
+                let spiciness = snackData[snackName] || null;
+                if (spiciness === null) {
+                    $('#evaluation').text(`No data found for "${snackName}".`);
+                    return;
+                }
+    
+                let userTolerance = parseFloat(finalTolerance);
+                let resultMessage = `The spiciness level of "${snackName}" is ${spiciness}.`;
+    
+                if (spiciness > userTolerance) {
+                    resultMessage += " This snack might be too spicy for you!";
+                } else {
+                    resultMessage += " This snack seems suitable for you!";
+                }
+    
+                $('#evaluation').text(resultMessage);
+            });
+        });
+    </script>
+</body>
+</html>
