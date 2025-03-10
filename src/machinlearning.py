@@ -2,7 +2,7 @@ import pickle
 import pandas as pd
 
 # ① 学習済みモデルの読み込み
-with open("..\src\spiciss_model.pkl", "rb") as f:
+with open("..\src\spiciness_multi_model.pkl", "rb") as f:
     model = pickle.load(f)
 
 # ② ユーザ入力の取得
@@ -13,10 +13,10 @@ except ValueError:
     exit()
 
 nationality_input = input("国籍を入力してください（タイ or 日本）: ").strip()
-# 数値にエンコード（タイ: 0, 日本: 1）
-if nationality_input == "日本":
+# 数値にエンコード（th: 0, jp: 1）
+if nationality_input == "jp":
     nationality = 1
-elif nationality_input == "タイ":
+elif nationality_input == "th":
     nationality = 0
 else:
     print("無効な国籍です。")
