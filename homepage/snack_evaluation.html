@@ -32,56 +32,69 @@
     
     <script>
         $(document).ready(function() {
-            let snackData = {};
+    // 疑似データベース（CSVの代わり）
+    let snackData = {
+        "辛口スナックA": 3,
+        "激辛スナックB": 5,
+        "マイルドスナック": 1
+    };
 
-            // CSVファイルを読み込む (正しいパスに修正)
-            function loadSnackData() {
-                fetch('../database/snacks.csv')  // ← `../` を追加して親ディレクトリを参照
-                    .then(response => response.text())
-                    .then(csvText => {
-                        let rows = csvText.split("\n").slice(1); // ヘッダー行をスキップ
-                        rows.forEach(row => {
-                            let columns = row.split(",");
-                            if (columns.length === 3) {
-                                let name = columns[1].trim(); // スナック名
-                                let spiciness = parseInt(columns[2].trim()); // 辛さレベル
-                                if (!isNaN(spiciness)) {
-                                    snackData[name] = spiciness;
-                                }
-                            }
-                        });
-                    })
-                    .catch(error => console.error("CSV読み込みエラー:", error));
-            }
+    // spicy_tolerance.html で入力したデータを取得
+    let age = localStorage.getItem('userAge') || "未入力";
+    let nationality = localStorage.getItem('userNationality') || "未入力";
+    let finalTolerance = localStorage.getItem('finalTolerance') || "未計算";
 
-            loadSnackData();
+    // 国籍の表示名を修正
+    let nationalityText = (nationality === "japan") ? "日本" : (nationality === "thailand") ? "タイ" : nationality;
 
-            $('input[name="method"]').change(function() {
-                if ($(this).val() === "manual") {
-                    $('#manualInput').show();
-                    $('#ocrInput').hide();
-                } else {
-                    $('#manualInput').hide();
-                    $('#ocrInput').show();
-                }
-            });
+    // データを画面に表示
+    $('#evaluation').before(`
+        <h2>ユーザー情報</h2>
+        <p>年齢: ${age} 歳</p>
+        <p>国籍: ${nationality}</p>
+        <p>計算された許容辛さレベル: ${finalTolerance}</p>
+    `);
 
-            $('#snackForm').submit(function(event) {
-                event.preventDefault();
-                let method = $('input[name="method"]:checked').val();
-                let snackName = "";
+    $('input[name="method"]').change(function() {
+        if ($(this).val() === "manual") {
+            $('#manualInput').show();
+            $('#ocrInput').hide();
+        } else {
+            $('#manualInput').hide();
+            $('#ocrInput').show();
+        }
+    });
 
-                if (method === "manual") {
-                    snackName = $('#snackName').val().trim();
-                } else {
-                    alert("OCR機能は未実装です。");
-                    return;
-                }
+    $('#snackForm').submit(function(event) {
+        event.preventDefault();
+        let method = $('input[name="method"]:checked').val();
+        let snackName = "";
 
-                let spiciness = snackData[snackName] || null;
-                if (spiciness === null) {
-                    $('#evaluation').text(`「${snackName}」のデータが見つかりません。`);
-                    return;
-                }
+        if (method === "manual") {
+            snackName = $('#snackName').val().trim();
+        } else {
+            alert("OCR機能は未実装です。");
+            return;
+        }
 
-                let finalTolerance = parseFloat(localStorage.getItem('final
+        let spiciness = snackData[snackName] || null;
+        if (spiciness === null) {
+            $('#evaluation').text(`「${snackName}」のデータが見つかりません。`);
+            return;
+        }
+
+        let userTolerance = parseFloat(finalTolerance);
+        let resultMessage = `「${snackName}」の辛さレベルは ${spiciness} です。`;
+
+        if (spiciness > userTolerance) {
+            resultMessage += "このスナックは辛すぎるかもしれません！";
+        } else {
+            resultMessage += "このスナックはあなたに合いそうです！";
+        }
+
+        $('#evaluation').text(resultMessage);
+    });
+});
+
+    </script>
+    

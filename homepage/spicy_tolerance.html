@@ -91,7 +91,7 @@
             <label><input type="radio" name="snack5" value="no" checked> NO</label>
         </div>
     </div>
-    <button type="submit" id="calculateBtn">計算</button>
+
 
     <h2 id="resultTitle">計算結果</h2>
     <p id="result"></p>
@@ -174,7 +174,8 @@
             $('#toleranceForm').submit(function(event) {
                 event.preventDefault();
                 let total = 0;
-                
+                let age = $('#age').val();
+                let nationality = $('#nationality option:selected').text();
                 for (let level = 1; level <= 5; level++) {
                     if ($(`input[name="snack${level}"]:checked`).val() === "yes") {
                         total += level;
@@ -184,6 +185,11 @@
                 let baseTolerance = total / 5;
                 let preference = parseFloat($('input[name="preference"]:checked').val());
                 let finalTolerance = baseTolerance + preference;
+                //localStorage.clear();
+
+                localStorage.setItem('userAge', age);
+                localStorage.setItem('userNationality', nationality);
+                localStorage.setItem('finalTolerance', finalTolerance);
                 
                 $('#result').text(`Basic Allowance: ${baseTolerance.toFixed(2)}, After Correction : ${finalTolerance.toFixed(2)}`);
                 localStorage.setItem('finalTolerance', finalTolerance);
