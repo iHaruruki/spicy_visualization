@@ -178,11 +178,11 @@
                 let nationality = $('#nationality option:selected').text();
                 for (let level = 1; level <= 5; level++) {
                     if ($(`input[name="snack${level}"]:checked`).val() === "yes") {
-                        total += level;
+                        total = level;
                     }
                 }
                 
-                let baseTolerance = total / 5;
+                let baseTolerance = total ;
                 let preference = parseFloat($('input[name="preference"]:checked').val());
                 let finalTolerance = baseTolerance + preference;
                 //localStorage.clear();
