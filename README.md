@@ -1,5 +1,7 @@
 # spicy_visualization
-海外研修_Project
+## Description
+:earth_asia: International Program in Thailand :japan:
+Project Brainstorming :wave:
 ## Dependency
 
 ## Setup
