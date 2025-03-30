@@ -1,6 +1,6 @@
 # spicy_visualization
 ## Description
-:earth_asia: International Program in Thailand :japan:
+:earth_asia: International Program in Thailand :japan: <br>
 Project Brainstorming :wave:
 ## Dependency
 
