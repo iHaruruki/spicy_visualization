@@ -1,7 +1,7 @@
 # spicy_visualization
 ## Description
 :earth_asia: International Program in Thailand :japan: <br>
-Project Brainstorming :wave:
+:wave: Project Brainstorming :smile::wink::upside_down_face:
 ## Dependency
 
 ## Setup
@@ -21,4 +21,6 @@ pip install opencv-python pytesseract pillow
 ```
 ## License
 ## Authors
+・[iHaruruki](https://github.com/iHaruruki)
+・[same0806](https://github.com/same0806)
 ## References
