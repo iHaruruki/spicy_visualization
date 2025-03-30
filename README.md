@@ -2,8 +2,12 @@
 ## Description
 :earth_asia: International Program in Thailand :japan: <br>
 :wave: Project Brainstorming :smile::wink::upside_down_face:
-## Dependency
 
+### Purpose
+**Quantitatively Evaluate Spiciness**
+・Quantifying spiciness enables objective evaluation independent of personal perception
+・Quantitative evaluation enables culture-based rating standards
+## Dependency
 ## Setup
 1. Download `Anaconda`<br>
 [Anaconda Installers](https://www.anaconda.com/download/success)
