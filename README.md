@@ -4,8 +4,8 @@
 :wave: Project Brainstorming :smile::wink::upside_down_face:
 
 ### Purpose
-**Quantitatively Evaluate Spiciness**
-・Quantifying spiciness enables objective evaluation independent of personal perception
+**Quantitatively Evaluate Spiciness** <br>
+・Quantifying spiciness enables objective evaluation independent of personal perception <br>
 ・Quantitative evaluation enables culture-based rating standards
 ## Dependency
 ## Setup
