@@ -25,6 +25,6 @@ pip install opencv-python pytesseract pillow
 ```
 ## License
 ## Authors
-・[iHaruruki](https://github.com/iHaruruki)
+・[iHaruruki](https://github.com/iHaruruki) <br>
 ・[same0806](https://github.com/same0806)
 ## References
