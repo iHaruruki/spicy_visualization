@@ -1,6 +1,6 @@
 # spicy_visualization
 ## Description
-:earth_asia: International Program in Thailand :japan: <br>
+:earth_asia: International Program in Thailand :earth_asia: <br>
 :wave: Project Brainstorming :smile::wink::upside_down_face:
 ### Purpose
 **Quantitatively Evaluate Spiciness** <br>
