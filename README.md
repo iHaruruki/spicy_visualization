@@ -8,8 +8,7 @@
 ・Quantitative evaluation enables culture-based rating standards
 
 <span style="color: red;">If you want more information, check out the [wiki](https://github.com/iHaruruki/spicy_visualization/wiki)</span>
-## Dependency
-## Setup
+## Setting UP a python environment
 1. Download `Anaconda`<br>
 [Anaconda Installers](https://www.anaconda.com/download/success)
 2. Open the `Anaconda Prompt`
@@ -20,12 +19,6 @@ pip install opencv-python pytesseract pillow
 ```
 4. Download `Tesseract-OCR` from the following URL:<br>
 [Tesseract-OCR](https://github.com/UB-Mannheim/tesseract/wiki)
-## Usage
-```
-
-```
-## License
 ## Authors
 ・[iHaruruki](https://github.com/iHaruruki) <br>
 ・[same0806](https://github.com/same0806)
-## References
